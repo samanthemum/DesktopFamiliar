@@ -1,6 +1,7 @@
 import random
 import tkinter as tk
 import pyautogui
+from gif import *
 
 x = 1400
 cycle = 0
@@ -89,22 +90,15 @@ def event(cycle, check, event_number, x):
 # CREATE WINDOW FOR PET
 window = tk.Tk()
 
-# FRAME NUMBERS
-idle_frames = 10
-idle_to_sleep_frames = 16
-sleep_frames = 11
-sleep_to_idle_frames = 16
-left_frames = 11
-right_frames = 11
-
+familiar_gif = Gif("bird_familiar")
 
 # CREATE ARRAYS OF FRAMES FOR BUDDY'S ACTIONS
-idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(idle_frames)] # idle gif, five frames
-idle_to_sleep = [tk.PhotoImage(file='idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(idle_to_sleep_frames)]
-sleep = [tk.PhotoImage(file='sleeping.gif', format = 'gif -index %i' %(i)) for i in range(sleep_frames)]
-sleep_to_idle = [tk.PhotoImage(file='sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(sleep_to_idle_frames)]
-left = [tk.PhotoImage(file='left.gif', format = 'gif -index %i' %(i)) for i in range(left_frames)]
-right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in range(right_frames)]
+idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_frames)] # idle gif, five frames
+idle_to_sleep = [tk.PhotoImage(file='idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_to_sleep_frames)]
+sleep = [tk.PhotoImage(file='sleeping.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_frames)]
+sleep_to_idle = [tk.PhotoImage(file='sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_to_idle_frames)]
+left = [tk.PhotoImage(file='left.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.left_frames)]
+right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.right_frames)]
 
 # MAKE BACKGROUND TRANSPARENT
 #window.config(highlightbackground='red')
