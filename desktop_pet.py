@@ -56,7 +56,7 @@ def update(cycle, check, event_number, x):
         cycle, event_number = animate(cycle, left, event_number,1,9)
         x -= 3
 
-    window.geometry('100x100+'+str(x)+'+1050')
+    window.geometry('200x200+'+str(x)+'+1050')
     label.configure(image=frame)
     window.after(1,event,cycle,check,event_number,x)      
 
@@ -64,51 +64,55 @@ def update(cycle, check, event_number, x):
 def event(cycle, check, event_number, x):
     if event_number in idle_num:
         check = 0
-        print('idle')
-        window.after(400, update, cycle, check, event_number, x)
+        window.after(150, update, cycle, check, event_number, x)
 
     elif event_number == 5:
         check = 1
-        print('from_idle_to_sleep')
-        window.after(100, update, cycle, check, event_number, x)
+        window.after(150, update, cycle, check, event_number, x)
 
     elif event_number in walk_left:
         check = 4
-        print('walking left')
-        window.after(100, update, cycle, check, event_number, x)
+        window.after(150, update, cycle, check, event_number, x)
 
     elif event_number in walk_right:
         check = 5
-        print('walking right')
-        window.after(100, update, cycle, check, event_number, x)
+        window.after(150, update, cycle, check, event_number, x)
 
     elif event_number in sleep_num:
         check = 2
-        print('sleep')
-        window.after(1000, update, cycle, check, event_number, x)
+        window.after(150, update, cycle, check, event_number, x)
 
     elif event_number == 14:
         check = 3
-        print('sleep to idle')
-        window.after(1000, update, cycle, check, event_number, x)
+        window.after(150, update, cycle, check, event_number, x)
 
 # CREATE WINDOW FOR PET
+window = tk.Tk()
 
-window = tk.Tk();
+# FRAME NUMBERS
+idle_frames = 10
+idle_to_sleep_frames = 16
+sleep_frames = 11
+sleep_to_idle_frames = 16
+left_frames = 11
+right_frames = 11
+
 
 # CREATE ARRAYS OF FRAMES FOR BUDDY'S ACTIONS
-idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(5)] # idle gif, five frames
-idle_to_sleep = [tk.PhotoImage(file='idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(8)]
-sleep = [tk.PhotoImage(file='sleeping.gif', format = 'gif -index %i' %(i)) for i in range(3)]
-sleep_to_idle = [tk.PhotoImage(file='sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(8)]
-left = [tk.PhotoImage(file='left.gif', format = 'gif -index %i' %(i)) for i in range(8)]
-right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in range(8)]
+idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(idle_frames)] # idle gif, five frames
+idle_to_sleep = [tk.PhotoImage(file='idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(idle_to_sleep_frames)]
+sleep = [tk.PhotoImage(file='sleeping.gif', format = 'gif -index %i' %(i)) for i in range(sleep_frames)]
+sleep_to_idle = [tk.PhotoImage(file='sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(sleep_to_idle_frames)]
+left = [tk.PhotoImage(file='left.gif', format = 'gif -index %i' %(i)) for i in range(left_frames)]
+right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in range(right_frames)]
 
 # MAKE BACKGROUND TRANSPARENT
-window.config(highlightbackground='black')
-label = tk.Label(window,bd=0,bg='black')
+#window.config(highlightbackground='red')
+label = tk.Label(window,bd=0,bg='red')
 window.overrideredirect(True)
-window.wm_attributes('-transparentcolor','black')
+window.wm_attributes('-transparentcolor','red')
+
+
 
 # ALLOW MOVEMENT AND ANIMATION
 label.pack()
