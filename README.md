@@ -9,7 +9,7 @@ This project was made by starting out with the guide found here: https://medium.
 * Events are cycled through correctly
 
 ## Planned Features/Updates
-* Desktop Familiar has new animations
+* <s>Desktop Familiar has new animations</s> (Completed 11/15!)
 * Desktop Familiar can move up and down
 * Users can name their Desktop Familiar
 * Desktop Familiar gets more events than just walking around and sleeping
