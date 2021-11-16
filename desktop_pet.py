@@ -3,89 +3,75 @@ import tkinter as tk
 import pyautogui
 from gif import *
 
-x = 1400
-cycle = 0
-check = 1
-idle_num = [1,2,3,4]
-sleep_num = [10,11,12,13,15]
-walk_left = [6,7]
-walk_right = [8,9]
-event_number = random.randrange(1,3,1)
-impath = 'C:\\filepath'
-
 # CYCLE THROUGH FRAMES
-def animate(cycle, frames, event_number,first, last):
-    if cycle < len(frames) -1:
-        cycle += 1
+def animate(gif, frames, first, last):
+    if gif.cycle < len(frames) -1:
+        gif.cycle += 1
     else:
-        cycle = 0
-        event_number = random.randrange(first, last+1,1)
+        gif.cycle = 0
+        gif.event_number = random.randrange(first, last+1,1)
    
-    return cycle, event_number
+    return gif.cycle, gif.event_number
     
 # UPDATES THE FRAMES
-def update(cycle, check, event_number, x):
+def update(gif):
     #idle
-    if check == 0:
-        frame = idle[cycle]
-        cycle, event_number = animate(cycle, idle, event_number,1,9)
+    if gif.check == 0:
+        frame = idle[gif.cycle]
+        gif.cycle, gif.event_number = animate(gif, idle,1,9)
         
     #idle to sleep
-    elif check == 1:
-        frame = idle_to_sleep[cycle]
-        cycle, event_number = animate(cycle, idle_to_sleep, event_number,10,10)
+    elif gif.check == 1:
+        frame = idle_to_sleep[gif.cycle]
+        gif.cycle, gif.event_number = animate(gif, idle_to_sleep,10,10)
         
     #sleep
-    elif check == 2:
-        frame = sleep[cycle]
-        cycle, event_number = animate(cycle, sleep, event_number,10,15)
+    elif gif.check == 2:
+        frame = sleep[gif.cycle]
+        gif.cycle, gif.event_number = animate(gif, sleep, 10,15)
         
     #sleep to idle
-    elif check == 3:
-        frame = sleep_to_idle[cycle]
-        cycle, event_number = animate(cycle, sleep_to_idle, event_number,1,4)
+    elif gif.check == 3:
+        frame = sleep_to_idle[gif.cycle]
+        gif.cycle, gif.event_number = animate(gif, sleep_to_idle, 1,4)
         
     # walk towards right
-    elif check == 5:
-        frame = right[cycle]
-        cycle, event_number = animate(cycle, right, event_number,1,9)
-        x += 3
+    elif gif.check == 5:
+        frame = right[gif.cycle]
+        gif.cycle, gif.event_number = animate(gif, right, 1,9)
+        gif.x += 3
        
      # walk towards left
-    elif check == 4:
-        frame = left[cycle]
-        cycle, event_number = animate(cycle, left, event_number,1,9)
-        x -= 3
+    elif gif.check == 4:
+        frame = left[gif.cycle]
+        cycle, event_number = animate(gif, left, 1, 9)
+        gif.x -= 3
 
-    window.geometry('200x200+'+str(x)+'+1050')
+    window.geometry('200x200+'+str(gif.x)+'+1050')
     label.configure(image=frame)
-    window.after(1,event,cycle,check,event_number,x)      
+    window.after(1,event, gif)      
 
 
-def event(cycle, check, event_number, x):
-    if event_number in idle_num:
-        check = 0
-        window.after(150, update, cycle, check, event_number, x)
+def event(gif):
+    if gif.event_number in gif.idle_num:
+        gif.check = 0
 
-    elif event_number == 5:
-        check = 1
-        window.after(150, update, cycle, check, event_number, x)
+    elif gif.event_number == gif.idle_to_sleep_num:
+        gif.check = 1
 
-    elif event_number in walk_left:
-        check = 4
-        window.after(150, update, cycle, check, event_number, x)
+    elif gif.event_number in gif.walk_left:
+        gif.check = 4
 
-    elif event_number in walk_right:
-        check = 5
-        window.after(150, update, cycle, check, event_number, x)
+    elif gif.event_number in gif.walk_right:
+        gif.check = 5
 
-    elif event_number in sleep_num:
-        check = 2
-        window.after(150, update, cycle, check, event_number, x)
+    elif gif.event_number in gif.sleep_num:
+        gif.check = 2
 
-    elif event_number == 14:
-        check = 3
-        window.after(150, update, cycle, check, event_number, x)
+    elif gif.event_number == gif.sleep_to_idle_num:
+        gif.check = 3
+    
+    window.after(150, update, gif)
 
 # CREATE WINDOW FOR PET
 window = tk.Tk()
@@ -112,5 +98,5 @@ window.wm_attributes('-transparentcolor','red')
 label.pack()
 
 # Loop program
-window.after(1,event,cycle,check,event_number,x)
+window.after(1, event, familiar_gif)
 window.mainloop()
