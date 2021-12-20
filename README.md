@@ -10,7 +10,7 @@ This project was made by starting out with the guide found here: https://medium.
 
 ## Planned Features/Updates
 * <s>Desktop Familiar has new animations</s> (Completed 11/15!)
-* Desktop Familiar can move up and down
+* <s>Desktop Familiar can move up and down</s> (Completed 12/19!)
 * Users can name their Desktop Familiar
 * Desktop Familiar gets more events than just walking around and sleeping
 * Users can choose their species of Desktop Familiar
