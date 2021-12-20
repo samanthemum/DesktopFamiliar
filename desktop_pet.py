@@ -75,7 +75,6 @@ def event(gif):
 
 # CREATE WINDOW FOR PET
 window = tk.Tk()
-
 familiar_gif = Gif("bird_familiar")
 
 # CREATE ARRAYS OF FRAMES FOR BUDDY'S ACTIONS
