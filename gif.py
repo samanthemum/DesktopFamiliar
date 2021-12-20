@@ -22,7 +22,8 @@ class Gif:
             self.left_frames = bird.left_frames
             self.right_frames = bird.right_frames
 
-            self.x = 1400
+            self.x = 960
+            self.y = 540
             self.event_number = random.randrange(1, 3, 1)
             self.cycle = 0
             self.check = 1

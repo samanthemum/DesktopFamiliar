@@ -40,14 +40,16 @@ def update(gif):
         frame = right[gif.cycle]
         gif.cycle, gif.event_number = animate(gif, right, 1,9)
         gif.x += 3
+        gif.y += random.randint(-3, 3)
        
      # walk towards left
     elif gif.check == 4:
         frame = left[gif.cycle]
         cycle, event_number = animate(gif, left, 1, 9)
         gif.x -= 3
+        gif.y += random.randint(-3, 3)
 
-    window.geometry('200x200+'+str(gif.x)+'+1050')
+    window.geometry('200x200+'+str(gif.x)+'+'+str(gif.y))
     label.configure(image=frame)
     window.after(1,event, gif)      
 
