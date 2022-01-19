@@ -80,8 +80,19 @@ def name_entered():
     familiar_gif.name = entered_name
     prompt_window.destroy()
 
+def create_new_familiar():
+    main_window.destroy()
+
 # CREATE OBJECT FOR FAMILIAR
 familiar_gif = Gif("bird_familiar")
+
+# MAIN WINDOW
+main_window = tk.Tk()
+main_window.geometry("500x500")
+main_window.title("DesktopFamiliar")
+main_create_new = tk.Button(main_window, height=2, width=20, text = "Create new familiar",command=lambda:create_new_familiar())
+main_create_new.pack()
+main_window.mainloop()
 
 # ASK USER FOR FAMILIAR NAME
 prompt_window = tk.Tk()
