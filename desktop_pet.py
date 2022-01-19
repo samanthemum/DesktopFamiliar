@@ -1,3 +1,4 @@
+from msilib.schema import RadioButton
 import random
 import tkinter as tk
 import pyautogui
@@ -82,29 +83,48 @@ def name_entered():
 
 def create_new_familiar():
     main_window.destroy()
+    global new_familiar
+    new_familiar = True
+
+def sel():
+    familiar_gif.type = var.get()
+
 
 # CREATE OBJECT FOR FAMILIAR
 familiar_gif = Gif("bird_familiar")
+new_familiar = False
 
 # MAIN WINDOW
 main_window = tk.Tk()
-main_window.geometry("500x500")
+main_window.geometry("800x800")
 main_window.title("DesktopFamiliar")
-main_create_new = tk.Button(main_window, height=2, width=20, text = "Create new familiar",command=lambda:create_new_familiar())
+main_create_new = tk.Button(main_window, height=2, width=20, text = "Create new familiar",command=lambda: create_new_familiar())
 main_create_new.pack()
 main_window.mainloop()
 
 # ASK USER FOR FAMILIAR NAME
-prompt_window = tk.Tk()
-prompt_window.geometry("500x500")
-prompt_window.title("DesktopFamiliar")
-name_label = tk.Label(text = "Name your familiar companion.")
-name_input = tk.Text(prompt_window, height=10, width=25, bg = "white")
-name_button = tk.Button(prompt_window, height=2, width=20, text="Enter",command=lambda:name_entered())
-name_label.pack()
-name_input.pack()
-name_button.pack()
-prompt_window.mainloop()
+if new_familiar:
+    prompt_window = tk.Tk()
+    prompt_window.geometry("800x800")
+    prompt_window.title("DesktopFamiliar")
+
+    var = tk.StringVar()
+    var.set("bird_familiar")
+
+    species_label = tk.Label(text = "Choose the species of your familiar companion.")
+    bird_button = tk.Radiobutton(prompt_window,text="Bird",value="bird_familiar",variable=var,command=sel)
+    goat_button = tk.Radiobutton(prompt_window,text="Goat",value="goat_familiar",variable=var,command=sel)
+    species_label.pack()
+    bird_button.pack()
+    goat_button.pack()
+
+    name_label = tk.Label(text = "Name your familiar companion.")
+    name_input = tk.Text(prompt_window, height=10, width=25, bg = "white")
+    name_button = tk.Button(prompt_window, height=2, width=20, text="Enter",command=lambda:name_entered())
+    name_label.pack()
+    name_input.pack()
+    name_button.pack()
+    prompt_window.mainloop()
 
 # CREATE WINDOW FOR PET
 familiar_window = tk.Tk()
