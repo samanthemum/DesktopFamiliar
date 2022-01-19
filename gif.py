@@ -27,3 +27,4 @@ class Gif:
             self.event_number = random.randrange(1, 3, 1)
             self.cycle = 0
             self.check = 1
+            self.name = ""

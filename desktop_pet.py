@@ -49,9 +49,9 @@ def update(gif):
         gif.x -= 3
         gif.y += random.randint(-3, 3)
 
-    window.geometry('200x200+'+str(gif.x)+'+'+str(gif.y))
+    familiar_window.geometry('500x500+'+str(gif.x)+'+'+str(gif.y))
     label.configure(image=frame)
-    window.after(1,event, gif)      
+    familiar_window.after(1,event, gif)      
 
 
 def event(gif):
@@ -73,11 +73,30 @@ def event(gif):
     elif gif.event_number == gif.sleep_to_idle_num:
         gif.check = 3
     
-    window.after(150, update, gif)
+    familiar_window.after(150, update, gif)
+
+def name_entered():
+    entered_name = name_input.get("1.0", "end-1c")
+    familiar_gif.name = entered_name
+    prompt_window.destroy()
+
+# CREATE OBJECT FOR FAMILIAR
+familiar_gif = Gif("bird_familiar")
+
+# ASK USER FOR FAMILIAR NAME
+prompt_window = tk.Tk()
+prompt_window.geometry("500x500")
+prompt_window.title("DesktopFamiliar")
+name_label = tk.Label(text = "Name your familiar companion.")
+name_input = tk.Text(prompt_window, height=10, width=25, bg = "white")
+name_button = tk.Button(prompt_window, height=2, width=20, text="Enter",command=lambda:name_entered())
+name_label.pack()
+name_input.pack()
+name_button.pack()
+prompt_window.mainloop()
 
 # CREATE WINDOW FOR PET
-window = tk.Tk()
-familiar_gif = Gif("bird_familiar")
+familiar_window = tk.Tk()
 
 # CREATE ARRAYS OF FRAMES FOR BUDDY'S ACTIONS
 idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_frames)] # idle gif, five frames
@@ -89,15 +108,19 @@ right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in
 
 # MAKE BACKGROUND TRANSPARENT
 #window.config(highlightbackground='red')
-label = tk.Label(window,bd=0,bg='red')
-window.overrideredirect(True)
-window.wm_attributes('-transparentcolor','red')
+label = tk.Label(familiar_window,bd=0,bg='red', padx=10, pady=10)
+familiar_window.overrideredirect(True)
+familiar_window.configure(bg='red')
+familiar_window.wm_attributes('-transparentcolor','red')
+familiar_name = tk.Label(text=familiar_gif.name, padx=10, pady=10)
 
 
 
 # ALLOW MOVEMENT AND ANIMATION
+if familiar_gif.name != '':
+    familiar_name.pack()
 label.pack()
 
 # Loop program
-window.after(1, event, familiar_gif)
-window.mainloop()
+familiar_window.after(1, event, familiar_gif)
+familiar_window.mainloop()
