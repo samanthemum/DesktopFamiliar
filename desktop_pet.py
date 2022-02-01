@@ -79,15 +79,15 @@ def event(gif):
 def name_entered():
     entered_name = name_input.get("1.0", "end-1c")
     familiar_gif.name = entered_name
+    familiar_type = var.get()
+    print(familiar_type)
+    familiar_gif.setType(familiar_type)
     prompt_window.destroy()
 
 def create_new_familiar():
     main_window.destroy()
     global new_familiar
     new_familiar = True
-
-def sel():
-    familiar_gif.type = var.get()
 
 
 # CREATE OBJECT FOR FAMILIAR
@@ -112,8 +112,8 @@ if new_familiar:
     var.set("bird_familiar")
 
     species_label = tk.Label(text = "Choose the species of your familiar companion.")
-    bird_button = tk.Radiobutton(prompt_window,text="Bird",value="bird_familiar",variable=var,command=sel)
-    goat_button = tk.Radiobutton(prompt_window,text="Goat",value="goat_familiar",variable=var,command=sel)
+    bird_button = tk.Radiobutton(prompt_window,text="Bird",value="bird_familiar",variable=var)
+    goat_button = tk.Radiobutton(prompt_window,text="Goat",value="goat_familiar",variable=var)
     species_label.pack()
     bird_button.pack()
     goat_button.pack()
@@ -130,12 +130,22 @@ if new_familiar:
 familiar_window = tk.Tk()
 
 # CREATE ARRAYS OF FRAMES FOR BUDDY'S ACTIONS
-idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_frames)] # idle gif, five frames
-idle_to_sleep = [tk.PhotoImage(file='idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_to_sleep_frames)]
-sleep = [tk.PhotoImage(file='sleeping.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_frames)]
-sleep_to_idle = [tk.PhotoImage(file='sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_to_idle_frames)]
-left = [tk.PhotoImage(file='left.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.left_frames)]
-right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.right_frames)]
+print(familiar_gif.type)
+if familiar_gif.type == "bird_familiar":
+    idle = [tk.PhotoImage(file='idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_frames)] # idle gif, five frames
+    idle_to_sleep = [tk.PhotoImage(file='idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_to_sleep_frames)]
+    sleep = [tk.PhotoImage(file='sleeping.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_frames)]
+    sleep_to_idle = [tk.PhotoImage(file='sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_to_idle_frames)]
+    left = [tk.PhotoImage(file='left.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.left_frames)]
+    right = [tk.PhotoImage(file='right.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.right_frames)]
+
+elif familiar_gif.type == "goat_familiar":
+    idle = [tk.PhotoImage(file='goat_idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_frames)] 
+    idle_to_sleep = [tk.PhotoImage(file='goat_idle_to_sleep.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.idle_to_sleep_frames)]
+    sleep = [tk.PhotoImage(file='goat_sleep.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_frames)]
+    sleep_to_idle = [tk.PhotoImage(file='goat_sleep_to_idle.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.sleep_to_idle_frames)]
+    left = [tk.PhotoImage(file='goat_left.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.left_frames)]
+    right = [tk.PhotoImage(file='goat_right.gif', format = 'gif -index %i' %(i)) for i in range(familiar_gif.right_frames)]
 
 # MAKE BACKGROUND TRANSPARENT
 #window.config(highlightbackground='red')
