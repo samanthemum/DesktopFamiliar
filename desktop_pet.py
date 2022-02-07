@@ -82,12 +82,39 @@ def name_entered():
     familiar_type = var.get()
     print(familiar_type)
     familiar_gif.setType(familiar_type)
+    save_familiar()
     prompt_window.destroy()
 
 def create_new_familiar():
     main_window.destroy()
     global new_familiar
     new_familiar = True
+
+def use_old_familiar():
+    save_file = open("save_data.txt", "r")
+    if save_file.closed:
+        print("Error opening file")
+        create_new_familiar()
+    
+    familiar_name = save_file.readline()[:-1]
+    familiar_type = save_file.readline()[:-1]
+
+    if familiar_type != "bird_familiar" and familiar_type != "goat_familiar":
+        print(familiar_name)
+        print(familiar_type)
+        print("Invalid data in file")
+        create_new_familiar()
+
+    familiar_gif.name = familiar_name
+    familiar_gif.setType(familiar_type)
+    main_window.destroy()
+
+
+def save_familiar():
+    save_file = open("save_data.txt", "w")
+    save_file.write(familiar_gif.name + "\n")
+    save_file.write(familiar_gif.type + "\n")
+    save_file.close()
 
 
 # CREATE OBJECT FOR FAMILIAR
@@ -100,6 +127,8 @@ main_window.geometry("800x800")
 main_window.title("DesktopFamiliar")
 main_create_new = tk.Button(main_window, height=2, width=20, text = "Create new familiar",command=lambda: create_new_familiar())
 main_create_new.pack()
+main_use_old = tk.Button(main_window, height=2, width=20, text = "Use previous familiar",command=lambda: use_old_familiar())
+main_use_old.pack()
 main_window.mainloop()
 
 # ASK USER FOR FAMILIAR NAME
