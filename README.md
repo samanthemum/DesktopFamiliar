@@ -14,4 +14,4 @@ This project was made by starting out with the guide found here: https://medium.
 * <s>Users can name their Desktop Familiar</s> (Completed 1/19!)
 * Desktop Familiar gets more events than just walking around and sleeping
 * <s>Users can choose their species of Desktop Familiar</s> (Completed 1/31!)
-* Users can save and reload Desktop Familiars
+* <s>Users can save and reload Desktop Familiars</s> (Completed 2/6!)
